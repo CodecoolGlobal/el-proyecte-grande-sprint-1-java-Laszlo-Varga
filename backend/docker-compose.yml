@@ -5,8 +5,8 @@ services:
     container_name: ThreeTree
     environment:
       POSTGRES_DB: customer
-      POSTGRES_USER: atidb
-      POSTGRES_PASSWORD: atidb
+      POSTGRES_USER: threetree
+      POSTGRES_PASSWORD: threetree
     ports:
       - "5432:5432"
 
