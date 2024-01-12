@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-// import * as React from 'react';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -16,7 +14,7 @@ import * as React from "react";
 import {useEffect, useState} from "react";
 import TextField from "@mui/material/TextField";
 import PaginationControlled from "./PaginationControlled.jsx";
-import {color} from "@mui/system";
+//import {color} from "@mui/system";
 
 
 function Copyright() {
