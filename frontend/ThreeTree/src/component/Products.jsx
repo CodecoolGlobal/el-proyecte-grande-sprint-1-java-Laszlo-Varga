@@ -34,8 +34,8 @@ const defaultTheme = createTheme();
 
 const fetchProducts = async () => {
     const response = await fetch('/api/products');
-    const products = await response.json();
-    return products;
+    const prods = await response.json();
+    return prods;
 }
 
 function displayProducts(products, page, pageSize) {
