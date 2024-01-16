@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/customers")
@@ -34,6 +35,12 @@ public class PersonController {
     @GetMapping("/{customerId}")
     public Person getCustomerById(@PathVariable("customerId") Long id) {
         return personService.getCustomerById(id);
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<Optional<Person>> getMe(@RequestHeader("Authorization") String token) {
+        Optional<Person> userDetails = personService.getPersonDetailsFromToken(token);
+        return ResponseEntity.ok(userDetails);
     }
 
     @PostMapping

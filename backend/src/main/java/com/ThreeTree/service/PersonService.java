@@ -1,21 +1,27 @@
 package com.ThreeTree.service;
 
+import com.ThreeTree.config.JwtService;
 import com.ThreeTree.dao.PersonRepository;
 import com.ThreeTree.dto.NewPersonRequest;
 import com.ThreeTree.model.Person;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Transactional
 @Service
 public class PersonService {
     private PersonRepository personRepository;
+    private JwtService jwtService;
+
     @Autowired
-    public PersonService(PersonRepository personRepository) {
+    public PersonService(PersonRepository personRepository, JwtService jwtService) {
         this.personRepository = personRepository;
+        this.jwtService = jwtService;
     }
 
     public List<Person> getCustomers() {
@@ -47,4 +53,16 @@ public class PersonService {
     public void deleteCustomerById(Long id) {
         personRepository.deleteById(id);
     }
+
+
+    public Optional<Person> getPersonDetailsFromToken(String token) {
+        try {
+            String userEmail = jwtService.extractClaim(token, Claims::getSubject);
+            Optional<Person> person = personRepository.findByEmail(userEmail); // Adjust based on your repository method
+            return person;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 }
