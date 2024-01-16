@@ -16,6 +16,6 @@ module.exports = {
             'warn',
             {allowConstantExport: true}
         ],
-        '@mui/material/known-as-property': ['error', 'sx']
+        //'@mui/material/known-as-property': ['error', 'sx']
     }
 };

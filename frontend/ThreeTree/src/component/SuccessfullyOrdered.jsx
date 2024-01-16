@@ -7,7 +7,7 @@ function SuccessfullyOrdered() {
     const theme = useTheme();
 
     const customStyles = {
-        backgroundImage: 'url("https://plus.unsplash.com/premium_photo-1663962158789-0ab624c4f17d?auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&w=2787")',
+        backgroundImage: 'url("https://images.unsplash.com/photo-1491146179969-d674118945ff?q=80&w=2832&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
@@ -26,11 +26,11 @@ function SuccessfullyOrdered() {
             >
                 <Container maxWidth="sm">
                     <Typography variant="h4" gutterBottom
-                                style={{fontSize: '45px', fontWeight: 'bold', color: 'whiteSmoke'}}>
+                                style={{fontSize: '45px', fontWeight: 'bold', color: 'ghostwhite'}}>
                         Successfully Ordered
                     </Typography>
                     <Typography variant="h4" gutterBottom
-                                style={{fontSize: '25px', fontWeight: 'bold', color: 'whitesmoke'}}>
+                                style={{fontSize: '25px', fontWeight: 'bold', color: 'ghostwhite'}}>
                         Thank you! Your order has been successfully placed.
                     </Typography>
                 </Container>

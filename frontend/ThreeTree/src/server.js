@@ -1,4 +1,3 @@
-// eslint-disable-next-line @mui/material/known-as-property
 import express from "express";
 import { createProxyMiddleware } from "http-proxy-middleware";
 import { fileURLToPath } from 'url';

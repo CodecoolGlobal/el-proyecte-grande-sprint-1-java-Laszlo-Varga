@@ -14,6 +14,7 @@ import * as React from "react";
 import {useEffect, useState} from "react";
 import TextField from "@mui/material/TextField";
 import PaginationControlled from "./PaginationControlled.jsx";
+
 //import {color} from "@mui/system";
 
 
@@ -79,27 +80,27 @@ export default function Products() {
                         minHeight: '100vh',
                     }}
                 >
-                        <Typography
-                            component="h1"
-                            variant="h2"
-                            color={"text.white"}
-                            sx={{
-                                textAlign: 'center',
-                                position: 'absolute',
-                                top: '22%', // Position the text in the middle vertically
-                                left: '50%', // Position the text in the middle horizontally
-                                transform: 'translate(-50%, -50%)', // Center the text
-                                zIndex: 1,
-                                fontFamily: 'Murray Text',
-                                fontSize: '16.5em',
-                                textShadow: '0px 4px 4px rgba(0, 0, 0, 1)',
-                                fontWeight: 'Medium',
-                                width: '100%',
-                                color: "grey"
-                            }}
-                        >
-                            Plantify
-                        </Typography>
+                    <Typography
+                        component="h1"
+                        variant="h2"
+                        color={"text.white"}
+                        sx={{
+                            textAlign: 'center',
+                            position: 'absolute',
+                            top: '22%', // Position the text in the middle vertically
+                            left: '50%', // Position the text in the middle horizontally
+                            transform: 'translate(-50%, -50%)', // Center the text
+                            zIndex: 1,
+                            fontFamily: 'Murray Text',
+                            fontSize: '16.5em',
+                            textShadow: '0px 4px 4px rgba(0, 0, 0, 1)',
+                            fontWeight: 'Medium',
+                            width: '100%',
+                            color: "grey"
+                        }}
+                    >
+                        Plantify
+                    </Typography>
                     <Typography
                         sx={{
                             position: 'fixed', // This makes the element fixed on the viewport
@@ -107,7 +108,7 @@ export default function Products() {
                             right: 0,          // This positions the button to the far right of the viewport
                             zIndex: 1,         // This ensures the button appears above other content
                             padding: '1em',     // Add some spacing from the top and right edges
-                    }}
+                        }}
                     >
                         <Button
                             color='primary'
@@ -142,10 +143,10 @@ export default function Products() {
                     </Typography>
                 </Container>
 
-                <Container sx={{ py: 8 }} maxWidth="md">
+                <Container sx={{py: 8}} maxWidth="md">
                     <Grid container spacing={7}>
 
-                    {displayProducts(products, page, pageSize).map((product) => (
+                        {displayProducts(products, page, pageSize).map((product) => (
                             <Grid item key={product.productId} xs={12} sm={6} md={4}>
                                 <Card
                                     sx={{height: "100%", display: "flex", flexDirection: "column"}}
