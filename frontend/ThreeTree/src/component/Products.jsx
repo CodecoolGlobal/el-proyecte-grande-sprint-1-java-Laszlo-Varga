@@ -14,6 +14,8 @@ import * as React from "react";
 import {useEffect, useState} from "react";
 import TextField from "@mui/material/TextField";
 import PaginationControlled from "./PaginationControlled.jsx";
+import { useUser } from "/Users/silverhorn/Codecool/projects/Advanced/Grande_Project/el-proyecte-grande-sprint-1-java-Laszlo-Varga/frontend/ThreeTree/src/context/UserProvider.jsx";
+import WarnToSignUP from "./WarnToSignUp.jsx";
 
 //import {color} from "@mui/system";
 
@@ -53,6 +55,10 @@ export default function Products() {
 
     const [products, setProducts] = useState([]);
     const [page, setPage] = React.useState(1);
+    const { user } = useUser();
+
+
+
     const handleChange = (event, value) => {
         console.log(value); // Add this line to check the selected page value
         setPage(value);
@@ -65,6 +71,11 @@ export default function Products() {
             setProducts(products);
         });
     }, []);
+
+
+    if (!user) {
+        return <WarnToSignUP/>;
+    }
 
 
     return (
