@@ -24,7 +24,7 @@ const UserProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     const getMe = useCallback((token) => {
-        fetch("/api/auth/me", {
+        fetch("/api/customers/me", {
             headers: {
                 authorization: `bearer ${token}`,
             },
