@@ -10,6 +10,17 @@ services:
     ports:
       - "5432:5432"
 
+  postgresdev:
+    image: postgres
+    container_name: Plantify
+    environment:
+      PGPORT: 6432
+      POSTGRES_DB: dev
+      POSTGRES_USER: plantify
+      POSTGRES_PASSWORD: plantify
+    ports:
+      - "6432:6432"
+
 
   backend:
     container_name: threetree-backend
@@ -22,6 +33,8 @@ services:
     command: ./mvnw package
     depends_on:
       - postgres
+    env_file:
+      - .env
 
   frontend:
     build:
