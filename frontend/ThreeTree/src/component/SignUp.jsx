@@ -11,6 +11,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
+import userProvider from "../context/UserProvider.jsx";
+import UserProvider from "../context/UserProvider.jsx";
 
 function Copyright(props) {
     return (
@@ -32,18 +34,20 @@ export default function SignUp() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
+        console.log("Form Data:", data);
 
         const requestBody = {
-            FirstName: data.get('First Name'),
-            LastName: data.get('Last Name'),
+            FirstName: data.get('firstName'),
+            LastName: data.get('lastName'),
             email: data.get('email'),
             phoneNumber: data.get('phoneNumber'),
             address: data.get('address'),
             password: data.get('password')
         };
+        console.log("Request Body:", requestBody);
 
         try {
-            const response = await fetch('/api/v1/register', {
+            const response = await fetch('/api/v1/auth/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -104,7 +108,7 @@ export default function SignUp() {
                                 margin="normal"
                                 required
                                 fullWidth
-                                name="First Name"
+                                name="firstName"
                                 label="First Name"
                                 type="text"
                                 id="firstName"
@@ -114,7 +118,7 @@ export default function SignUp() {
                                 margin="normal"
                                 required
                                 fullWidth
-                                name="Last Name"
+                                name="lastName"
                                 label="Last Name"
                                 type="text"
                                 id="lastName"
@@ -179,9 +183,9 @@ export default function SignUp() {
                                     mb: 3,
                                     ml: 3.8
                                 }}
-                                onClick={() => {
-                                    window.location.href = "/Products"
-                                }}
+                                // onClick={() => {
+                                //     window.location.href = "/"
+                                // }}
                             >
                                 Sign Up
                             </Button>
