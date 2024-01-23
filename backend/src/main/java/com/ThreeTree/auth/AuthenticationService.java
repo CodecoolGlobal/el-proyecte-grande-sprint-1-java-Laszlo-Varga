@@ -25,6 +25,8 @@ public class AuthenticationService {
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .email(request.getEmail())
+                .phoneNumber(request.getPhoneNumber())
+                .address(request.getAddress())
                 .password(passwordEncoder.encode(request.getPassword()))//Bcrypt algorithm
                 .role((Role.USER))
                 .build();
