@@ -11,8 +11,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import userProvider from "../context/UserProvider.jsx";
-import UserProvider from "../context/UserProvider.jsx";
+import UserProvider, {useUser} from "../context/UserProvider.jsx";
 
 function Copyright(props) {
     return (
@@ -30,15 +29,18 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
+
 export default function SignUp() {
+    const { user, signup} = useUser();
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         console.log("Form Data:", data);
+        console.log(user);
 
         const requestBody = {
-            FirstName: data.get('firstName'),
-            LastName: data.get('lastName'),
+            firstName: data.get('firstName'),
+            lastName: data.get('lastName'),
             email: data.get('email'),
             phoneNumber: data.get('phoneNumber'),
             address: data.get('address'),
@@ -46,158 +48,142 @@ export default function SignUp() {
         };
         console.log("Request Body:", requestBody);
 
-        try {
-            const response = await fetch('/api/v1/auth/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(requestBody)
-            });
-
-            if (!response.ok) {
-                throw new Error("ERROR: Failed to send request to server.");
-            } else {
-                console.log("Successfully sent request to server.");
-            }
-
-        } catch (error) {
-            console.error('Failed to send request:', error);
-        }
-
+        signup(requestBody);
     };
 
     return (
         <ThemeProvider theme={defaultTheme}>
-            <Typography
-                component={Box}
-                display="flex"
-                alignItems="flex-start"
-                justifyContent="flex-end"
-                sx={{
-                    backgroundImage: 'url("https://images.unsplash.com/photo-1603912699214-92627f304eb6?auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1pYWdlfHx8fGVufDB8fHx8fA%3D%3D&w=2825")',
-                    backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat',
-                    minHeight: '100vh',
-                    padding: '1em'
-                }}
-            >
-                <Container component="main" maxWidth="md">
-                    <CssBaseline/>
-                    <Box
-                        sx={{
-                            width: '100%',
-                            backgroundColor: 'darkgrey',
-                            marginTop: 1,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            borderRadius: '2em',
-                            padding: '2em',
-                            boxShadow: '0px 10px 20px 0px rgba(0,0,0,1)',
-                        }}
-                    >
-                        <Avatar sx={{m: 1, color: 'black'}}>
-                            <LockOutlinedIcon/>
-                        </Avatar>
-                        <Typography component="h1" variant="h5" >
-                            Sign Up to Plantify
-                        </Typography>
-                        <Box component="form" onSubmit={handleSubmit} noValidate sx={{mt: 1}}>
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="firstName"
-                                label="First Name"
-                                type="text"
-                                id="firstName"
-                                autoComplete="given-name"
-                            />
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="lastName"
-                                label="Last Name"
-                                type="text"
-                                id="lastName"
-                                autoComplete="family-name"
-                            />
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="address"
-                                label="Address"
-                                type="text"
-                                id="address"
-                                autoComplete="address-line1"
-                            />
+            <UserProvider>
+                <Typography
+                    component={Box}
+                    display="flex"
+                    alignItems="flex-start"
+                    justifyContent="flex-end"
+                    sx={{
+                        backgroundImage: 'url("https://images.unsplash.com/photo-1603912699214-92627f304eb6?auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1pYWdlfHx8fGVufDB8fHx8fA%3D%3D&w=2825")',
+                        backgroundSize: 'cover',
+                        backgroundRepeat: 'no-repeat',
+                        minHeight: '100vh',
+                        padding: '1em'
+                    }}
+                >
+                    <Container component="main" maxWidth="md">
+                        <CssBaseline/>
+                        <Box
+                            sx={{
+                                width: '100%',
+                                backgroundColor: 'darkgrey',
+                                marginTop: 1,
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                borderRadius: '2em',
+                                padding: '2em',
+                                boxShadow: '0px 10px 20px 0px rgba(0,0,0,1)',
+                            }}
+                        >
+                            <Avatar sx={{m: 1, color: 'black'}}>
+                                <LockOutlinedIcon/>
+                            </Avatar>
+                            <Typography component="h1" variant="h5">
+                                Sign Up to Plantify
+                            </Typography>
+                            <Box component="form" onSubmit={handleSubmit} noValidate sx={{mt: 1}}>
+                                <TextField
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    name="firstName"
+                                    label="First Name"
+                                    type="text"
+                                    id="firstName"
+                                    autoComplete="given-name"
+                                />
+                                <TextField
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    name="lastName"
+                                    label="Last Name"
+                                    type="text"
+                                    id="lastName"
+                                    autoComplete="family-name"
+                                />
+                                <TextField
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    name="address"
+                                    label="Address"
+                                    type="text"
+                                    id="address"
+                                    autoComplete="address-line1"
+                                />
 
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                label="Email Address"
-                                name="email"
-                                type="text"
-                                id="email"
-                                autoComplete="email"
-                            />
+                                <TextField
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    label="Email Address"
+                                    name="email"
+                                    type="text"
+                                    id="email"
+                                    autoComplete="email"
+                                />
 
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                label="Phone Number"
-                                name="phoneNumber"
-                                type="text"
-                                id="phoneNumber"
-                                autoComplete="tel"
-                            />
+                                <TextField
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    label="Phone Number"
+                                    name="phoneNumber"
+                                    type="text"
+                                    id="phoneNumber"
+                                    autoComplete="tel"
+                                />
 
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="password"
-                                label="password"
-                                type="text"
-                                id="password"
-                                autoComplete="given-name"
-                            />
-                            <FormControlLabel
-                                control={<Checkbox value="remember" color="primary"/>}
-                                label="Remember me"
-                            />
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                sx={{
-                                    width: '46%', // Set the width to 50%
-                                    height: '2.8em',
-                                    mx: "auto",    // Center the button horizontally
-                                    mt: 5,
-                                    mb: 3,
-                                    ml: 3.8
-                                }}
-                                // onClick={() => {
-                                //     window.location.href = "/"
-                                // }}
-                            >
-                                Sign Up
-                            </Button>
-                            <Grid container>
-                                <Grid item xs>
+                                <TextField
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    name="password"
+                                    label="password"
+                                    type="text"
+                                    id="password"
+                                    autoComplete="given-name"
+                                />
+                                <FormControlLabel
+                                    control={<Checkbox value="remember" color="primary"/>}
+                                    label="Remember me"
+                                />
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    sx={{
+                                        width: '46%', // Set the width to 50%
+                                        height: '2.8em',
+                                        mx: "auto",    // Center the button horizontally
+                                        mt: 5,
+                                        mb: 3,
+                                        ml: 3.8
+                                    }}
+                                    // onClick={() => {
+                                    //     window.location.href = "/products";
+                                    // }}
+                                >
+                                    Sign Up
+                                </Button>
+                                <Grid container>
+                                    <Grid item xs>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
+                            </Box>
                         </Box>
-                    </Box>
-                    <Copyright sx={{mt: 8, mb: 4}}/>
-                </Container>
-            </Typography>
+                        <Copyright sx={{mt: 8, mb: 4}}/>
+                    </Container>
+                </Typography>
+            </UserProvider>
         </ThemeProvider>
     );
 }

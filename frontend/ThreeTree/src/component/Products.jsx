@@ -14,11 +14,8 @@ import * as React from "react";
 import {useEffect, useState} from "react";
 import TextField from "@mui/material/TextField";
 import PaginationControlled from "./PaginationControlled.jsx";
-import { useUser } from "/Users/silverhorn/Codecool/projects/Advanced/Grande_Project/el-proyecte-grande-sprint-1-java-Laszlo-Varga/frontend/ThreeTree/src/context/UserProvider.jsx";
 import WarnToSignUP from "./WarnToSignUp.jsx";
-
-//import {color} from "@mui/system";
-
+import {useUser} from "../context/UserProvider.jsx";
 
 function Copyright() {
     return (
@@ -34,9 +31,15 @@ function Copyright() {
 }
 
 const defaultTheme = createTheme();
+//window.localStorage.clear();
 
-const fetchProducts = async () => {
-    const response = await fetch('/api/products');
+const fetchProducts = async (token) => {
+    const response = await fetch('/api/products', {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+    });
     const prods = await response.json();
     return prods;
 }
@@ -55,8 +58,8 @@ export default function Products() {
 
     const [products, setProducts] = useState([]);
     const [page, setPage] = React.useState(1);
-    const { user } = useUser();
-
+    const {getToken, user} = useUser();
+    console.log(getToken());
 
 
     const handleChange = (event, value) => {
@@ -66,16 +69,16 @@ export default function Products() {
 
 
     useEffect(() => {
-        fetchProducts().then((products) => {
+        fetchProducts(getToken()).then((products) => {
             console.log(products);
             setProducts(products);
         });
     }, []);
 
 
-    if (!user) {
-        return <WarnToSignUP/>;
-    }
+    // if (!user) {
+    //     return <WarnToSignUP/>;
+    // }
 
 
     return (
@@ -221,5 +224,4 @@ export default function Products() {
             }
         </ThemeProvider>
     )
-        ;
 }

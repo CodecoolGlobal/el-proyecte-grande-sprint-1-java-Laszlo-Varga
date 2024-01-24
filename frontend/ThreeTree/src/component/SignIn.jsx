@@ -11,6 +11,7 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
+import {useUser} from "../context/UserProvider.jsx";
 
 function Copyright(props) {
     return (
@@ -28,36 +29,22 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-async function submitForm(event) {
-    event.preventDefault();
-    const data = new FormData(event.target);
 
-    const requestBody = {
-        email: data.get('email'),
-        password: data.get('password')
-    };
-
-    try {
-        const response = await fetch('/api/v1/authenticate', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(requestBody)
-        });
-
-        if (!response.ok) {
-            throw new Error("ERROR: Failed to send request to server.");
-        } else {
-            console.log("Successfully sent request to server.");
-        }
-
-    } catch (error) {
-        console.error('Failed to send request:', error);
-    }
-}
 
 export default function SignIn() {
+    const {signin} = useUser();
+
+    async function submitForm(event) {
+        event.preventDefault();
+        const data = new FormData(event.target);
+
+        const requestBody = {
+            email: data.get('email'),
+            password: data.get('password')
+        };
+
+        signin(requestBody);
+    }
 
     return (
         <ThemeProvider theme={defaultTheme}>

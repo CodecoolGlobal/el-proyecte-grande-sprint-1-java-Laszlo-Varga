@@ -1,10 +1,4 @@
-import {
-    createContext,
-    useCallback,
-    useContext,
-    useEffect,
-    useState,
-} from "react";
+import {createContext, useCallback, useContext, useEffect, useState,} from "react";
 import PropTypes from "prop-types";
 
 
@@ -14,7 +8,7 @@ const getToken = () => window.localStorage.getItem("token");
 const setToken = (token) => window.localStorage.setItem("token", token);
 
 
-const UserProvider = ({ children }) => {
+const UserProvider = ({children}) => {
 
     UserProvider.propTypes = {
         children: PropTypes.any.isRequired
@@ -23,7 +17,7 @@ const UserProvider = ({ children }) => {
     const [user, setUser] = useState();
     const [loading, setLoading] = useState(true);
 
-    const getMe = useCallback((token) => {
+    const fetchUser = useCallback((token) => {
         fetch("/api/customers/me", {
             headers: {
                 authorization: `bearer ${token}`,
@@ -45,38 +39,66 @@ const UserProvider = ({ children }) => {
             setLoading(false);
             return;
         }
-
-        getMe(token);
+        fetchUser(token);
     }, []);
 
-    const login = (creds) => {
+    const signup = async (creds) => {
+        try {
+            const response = await fetch('/api/v1/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(creds)
+            });
+
+            if (!response.ok) {
+                throw new Error("ERROR: Failed to send request to server.");
+            } else {
+                const responseData = await response.json();
+                const {token} = responseData;
+                if (token) {
+                    setToken(token);
+                    fetchUser(token);
+                    console.log(getToken());
+                }
+            }
+        } catch (error) {
+            console.error('Failed to send request:', error);
+        }
+    };
+
+    const signin = (creds, token) => {
         fetch("/api/v1/auth/authenticate", {
             method: "POST",
             headers: {
+                "authorization": `bearer ${token}`,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(creds),
         })
             .then((res) => res.json())
             .then((res) => {
-                const { token } = res;
+                const {token} = res.token;
                 if (token) {
                     setToken(token);
-                    getMe(token);
+                    fetchUser(token);
+                    console.log(getToken());
                 }
             });
     };
 
-    const logout = () => {
+    const signout = () => {
         setUser(null);
         setToken("");
     }
 
-    return (
-        <UserContext.Provider value={{ user, login, logout }}>
-            {!loading && children}
-        </UserContext.Provider>
-    );
+    return (<UserContext.Provider value={{
+        user, signin, signup, signout, getToken, setToken
+    }}
+    >
+        {!loading && children}
+    </UserContext.Provider>);
 };
 
 export const useUser = () => useContext(UserContext);

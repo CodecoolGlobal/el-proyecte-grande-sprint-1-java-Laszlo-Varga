@@ -37,7 +37,7 @@ export default function Checkout() {
             <AppBar position="absolute" elevation={0} sx={{ position: 'relative', borderBottom: (t) => `1px solid ${t.palette.divider}`, backgroundColor: 'grey' }}>
                 <Toolbar>
                     <Typography variant="h6" color="black" noWrap>
-                        PLantify
+                        Plantify
                     </Typography>
                 </Toolbar>
             </AppBar>
