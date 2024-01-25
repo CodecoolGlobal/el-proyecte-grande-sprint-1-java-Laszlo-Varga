@@ -38,10 +38,9 @@ public class PersonController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<Optional<Person>> getMe(@RequestHeader("Authorization") String token) {
+    public ResponseEntity<Optional<String>> getMe(@RequestHeader("Authorization") String token) {
         Optional<Person> userDetails = personService.getPersonDetailsFromToken(token);
-        System.out.println(userDetails);
-        return ResponseEntity.ok(userDetails);
+        return ResponseEntity.ok(userDetails.get().getFirstName().describeConstable());
     }
 
     @PostMapping

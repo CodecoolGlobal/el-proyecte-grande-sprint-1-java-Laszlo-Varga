@@ -56,13 +56,10 @@ public class PersonService {
 
 
     public Optional<Person> getPersonDetailsFromToken(String token) {
-        try {
-            String userEmail = jwtService.extractClaim(token, Claims::getSubject);
+            String plainToken = token.substring(6);
+            String userEmail = jwtService.extractClaim(plainToken, Claims::getSubject);
             Optional<Person> person = personRepository.findByEmail(userEmail); // Adjust based on your repository method
             return person;
-        } catch (Exception e) {
-            return null;
-        }
     }
 
 }

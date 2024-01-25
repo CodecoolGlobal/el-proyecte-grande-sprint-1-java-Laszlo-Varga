@@ -10,6 +10,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.InvalidObjectException;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -19,7 +22,11 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse register(RegisterRequest request) {
+    public AuthenticationResponse register(RegisterRequest request) throws InvalidObjectException {
+
+        if (emailAlreadyExists(request.getEmail())) {
+            throw new InvalidObjectException("Email address already registered");
+        }
 
         var person = Person.builder()
                 .firstName(request.getFirstName())
@@ -36,6 +43,11 @@ public class AuthenticationService {
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
+    }
+
+    private boolean emailAlreadyExists(String email) {
+        Optional<Person> existingPerson = repository.findByEmail(email);
+        return existingPerson.isPresent();
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
