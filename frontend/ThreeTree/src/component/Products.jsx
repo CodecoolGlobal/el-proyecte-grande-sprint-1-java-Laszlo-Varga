@@ -58,8 +58,9 @@ export default function Products() {
 
     const [products, setProducts] = useState([]);
     const [page, setPage] = React.useState(1);
-    const {getToken, user} = useUser();
+    const {getToken, userName, fetchUserName} = useUser();
     console.log(getToken());
+    console.log(userName);
 
 
     const handleChange = (event, value) => {
@@ -72,13 +73,14 @@ export default function Products() {
         fetchProducts(getToken()).then((products) => {
             console.log(products);
             setProducts(products);
+            fetchUserName(getToken());
         });
     }, []);
 
 
-    // if (!user) {
-    //     return <WarnToSignUP/>;
-    // }
+    if (!userName) {
+        return <WarnToSignUP/>;
+    }
 
 
     return (

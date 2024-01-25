@@ -135,6 +135,9 @@ export default function SignIn() {
                                 fullWidth
                                 variant="contained"
                                 sx={{mt: 3, mb: 2}}
+                                // onClick={() => {
+                                //     window.location.href = "/products";
+                                // }}
                             >
                                 Sign In
                             </Button>
