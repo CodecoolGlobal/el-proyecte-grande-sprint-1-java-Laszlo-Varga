@@ -56,7 +56,7 @@ public class PersonService {
 
 
     public Optional<Person> getPersonDetailsFromToken(String token) {
-            String plainToken = token.substring(6);
+            String plainToken = token.substring(7);
             String userEmail = jwtService.extractClaim(plainToken, Claims::getSubject);
             Optional<Person> person = personRepository.findByEmail(userEmail); // Adjust based on your repository method
             return person;
