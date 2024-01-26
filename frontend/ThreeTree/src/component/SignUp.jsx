@@ -31,12 +31,11 @@ const defaultTheme = createTheme();
 
 
 export default function SignUp() {
-    const { user, signup} = useUser();
+    const { userName, signup} = useUser();
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         console.log("Form Data:", data);
-        console.log(user);
 
         const requestBody = {
             firstName: data.get('firstName'),
@@ -169,7 +168,7 @@ export default function SignUp() {
                                         ml: 3.8
                                     }}
                                     // onClick={() => {
-                                    //     window.location.href = "/products";
+                                    //     window.location.href = "/Products"
                                     // }}
                                 >
                                     Sign Up

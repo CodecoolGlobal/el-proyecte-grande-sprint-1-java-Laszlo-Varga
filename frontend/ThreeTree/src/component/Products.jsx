@@ -55,10 +55,9 @@ function displayProducts(products, page, pageSize) {
 const pageSize = 9;
 
 export default function Products() {
-
     const [products, setProducts] = useState([]);
     const [page, setPage] = React.useState(1);
-    const {getToken, userName, fetchUserName} = useUser();
+    const {getToken, userName} = useUser();
     console.log(getToken());
     console.log(userName);
 
@@ -73,7 +72,6 @@ export default function Products() {
         fetchProducts(getToken()).then((products) => {
             console.log(products);
             setProducts(products);
-            fetchUserName(getToken());
         });
     }, []);
 

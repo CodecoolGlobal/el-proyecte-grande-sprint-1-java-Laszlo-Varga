@@ -57,8 +57,8 @@ const UserProvider = ({children}) => {
                 const token = responseData.token;
                 if (token) {
                     setToken(token);
-                    fetchUserName(token);
-                    console.log(userName);
+                    await fetchUserName(token);
+                    window.location.href = "/Products";
                     console.log(getToken());
                 }
             }
