@@ -1,96 +1,5 @@
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
-<a name="readme-top"></a>
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
--->
-
-
-
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
-
-
-<!-- PROJECT LOGO -->
-<br />
-<div align="center">
-  <a href="https://github.com/github_username/repo_name">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
-
-<h3 align="center">project_title</h3>
-
-  <p align="center">
-    project_description
-    <br />
-    <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
-    ·
-    <a href="https://github.com/github_username/repo_name/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/github_username/repo_name/issues">Request Feature</a>
-  </p>
-</div>
-
-
-
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
-</details>
-
-
-
-<!-- ABOUT THE PROJECT -->
-## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
+Project Overview
+The Plantify project is developed as a web application designed to efficiently manage plant orders and purchases. It utilizes a wide range of technologies, including Spring Boot and Spring Data JPA for backend development, PostgreSQL for database management, and React for the frontend. This comprehensive solution offers seamless plant ordering and purchasing capabilities and has been Dockerized for simplified deployment and management.
 ### Built With
 
 * [![Next][Next.js]][Next-url]
@@ -104,144 +13,80 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+Create the PostgreSQL Database:
 
+Install PostgreSQL if it's not already installed. Start the PostgreSQL database server. Create a Database:
+Create a new database on the PostgreSQL server. For example, you can use the following command in the psql command-line or an admin tool:
 
-<!-- GETTING STARTED -->
-## Getting Started
+CREATE DATABASE your_database_name;
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+"2. Define Environment Variables in the main application or within the docker-compose.yml file (depending on your configuration preference):
 
-### Prerequisites
+Set the following environment variables to configure the connection details required for your project. These details will be used by the application to establish a connection with the PostgreSQL database."
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+SPRING_DATASOURCE_URL: The URL of your PostgreSQL database, e.g., jdbc:postgresql://${DB_HOST}:${DB_PORT}/your_database_name
+DB_USERNAME: Your PostgreSQL database username, e.g., ``
+DB_PASSWORD: Your PostgreSQL database password, e.g., ``
+Additionally, consider setting any other environment variables that your application may require for proper operation. For example:
 
-### Installation
+USER_EMAIL: Your user's gmail email address, e.g., ``
+USER_PASSWORD: Your Google application password for authentication, e.g., ``
+Make sure to replace the placeholder values with your actual database and user information.
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/github_username/repo_name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
+After setting these environment variables, the application will use them to establish a connection to the PostgreSQL database. Make sure you have configured these variables with the correct values for your project to work as expected.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+Building and Running the Application
+Change to the '/backend' directory by using the following command: cd ./backend
 
+To build and run the Spring Boot application using a JAR file, you can follow these steps:
 
+Build the JAR file with Maven: mvn clean package
 
-<!-- USAGE EXAMPLES -->
-## Usage
+Once the JAR file is built, run the Spring Boot application using the JAR file: java -jar target/security-0.0.1-SNAPSHOT.jar
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Alternatively, you can use Docker Compose:
+Use Docker Compose with your environment variables: docker-compose up -d
+The application will start in a Docker container, and it will also run on port 8080 by default.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+React Frontend Configuration for Docker
+For deploying your React application, you have two primary options depending on your development and production needs. You can configure the React app to run with its own development server for live reloading features, or you can serve it through an Express server for a more production-like environment.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+Option 1: Running with React Development Server
+To run your React application in a Docker container using the React development server, which is useful for development due to its live reloading capability, follow this configuration in your DockerfileFrontend:
 
+BUILD REACT FRONTEND:
+FROM node:18.14.0-alpine as frontend WORKDIR /app/frontend COPY package.json ./ COPY package-lock.json ./ RUN npm install COPY . . CMD ["npm", "run", "dev"]
 
+By default, this server runs on port 5173 so make sure your docker-compose.yml maps this port correctly to access the application on localhost:5173.
 
-<!-- ROADMAP -->
-## Roadmap
+Option 2: Serving through Express Server
+BUILD REACT FRONTEND:
+FROM node:18.14.0-alpine as frontend WORKDIR /app/frontend COPY package.json ./ COPY package-lock.json ./ RUN npm install COPY . . RUN npm run build
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
+BUILD EXPRESS FRONTEND SERVER:
+FROM node:18.14.0-alpine as express-server WORKDIR /app/express-server COPY package.json ./ COPY package-lock.json ./ RUN npm install COPY server.js . COPY --from=frontend /app/frontend/build ./static EXPOSE 3000 CMD ["node", "server.js"]
 
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
+The Express server listens on port 3000, so make sure your docker-compose.yml maps this port correctly to access the application on localhost:3000.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+Client side
+Install Dependencies
+cd ./frontend npm install Proxy Pay attention to the port of your REST API. By default, it will bind to port 8080, and the frontend proxy settings depend on this configuration. If you change the port of the backend for any reason, don't forget to update the proxy settings in ./frontend/package.json accordingly.
 
+Running the Code
+To run the code, navigate to the "./frontend" directory and execute the following command: npm run dev This will start your frontend using the Vite package on port 5173. You can access the application in your preferred web browser by opening the following URL: http://localhost:5173
 
+Running Unit Tests
+To ensure the quality and functionality of our backend services, comprehensive unit tests have been implemented. These tests can be executed to verify the behavior of individual units of code and ensure that they meet our expected outcomes.
 
-<!-- CONTRIBUTING -->
-## Contributing
+How to Run Tests
+Navigating to the Backend Directory: First, navigate to the backend directory of the Plant-Shop project where the unit tests are located. You can do this by opening a command prompt or terminal and running the following command:
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+cd D:\Own Projects\plant-shop\backend This will change your current directory to the backend part of the Plant-Shop project.
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
+Executing the Tests
+Once you are in the backend directory, you can run the unit tests by executing the mvn test command. This command will trigger Maven to run all the unit tests defined in the project:
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+mvn test
+Ensure that Maven is installed and configured properly on your system to execute this command successfully.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- LICENSE -->
-## License
-
-Distributed under the MIT License. See `LICENSE.txt` for more information.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- CONTACT -->
-## Contact
-
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
-
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/repo_name)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-* []()
-* []()
-* []()
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
-[contributors-url]: https://github.com/github_username/repo_name/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
-[forks-url]: https://github.com/github_username/repo_name/network/members
-[stars-shield]: https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge
-[stars-url]: https://github.com/github_username/repo_name/stargazers
-[issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
-[issues-url]: https://github.com/github_username/repo_name/issues
-[license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
-[license-url]: https://github.com/github_username/repo_name/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: images/screenshot.png
-[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
-[Next-url]: https://nextjs.org/
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
-[Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
-[Vue-url]: https://vuejs.org/
-[Angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
-[Angular-url]: https://angular.io/
-[Svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
-[Svelte-url]: https://svelte.dev/
-[Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
-[Laravel-url]: https://laravel.com
-[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
-[Bootstrap-url]: https://getbootstrap.com
-[JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-[JQuery-url]: https://jquery.com 
+Locating Unit Tests The unit tests for the backend services can be found within the Backend/src/test directory. 
